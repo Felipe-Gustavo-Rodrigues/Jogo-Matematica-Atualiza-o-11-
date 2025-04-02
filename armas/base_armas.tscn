@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvmtey6pouxly"]
+
+[ext_resource type="Script" uid="uid://dkpa4xyfsovr7" path="res://armas/base_armas.gd" id="1_3ctur"]
+[ext_resource type="Texture2D" uid="uid://db47s0bwgywar" path="res://Assets (GERAL)/assets/spritesheet.png" id="1_ypklm"]
+
+[node name="Base_armas" type="Node2D" node_paths=PackedStringArray("_atack_timer", "_detectar_area", "_animacao")]
+position = Vector2(0, 3)
+script = ExtResource("1_3ctur")
+_atack_timer = NodePath("Timer")
+_detectar_area = NodePath("DetectarArea")
+_animacao = NodePath("AnimationPlayer")
+
+[node name="texturaArma" type="Sprite2D" parent="."]
+texture = ExtResource("1_ypklm")
+region_enabled = true
+
+[node name="Arma_1" type="Sprite2D" parent="."]
+texture = ExtResource("1_ypklm")
+region_enabled = true
+
+[node name="Arma_2" type="Sprite2D" parent="."]
+texture = ExtResource("1_ypklm")
+region_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AreaAtaque" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="DetectarArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="AreaAtaque" to="." method="_on_area_ataque_body_entered"]
+[connection signal="body_entered" from="DetectarArea" to="." method="_on_detectar_area_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://cckl52ijwp786"]
+
+[ext_resource type="PackedScene" uid="uid://bhkivbmhqpr6d" path="res://MenegemLevl/level_1.tscn" id="1_to5uw"]
+[ext_resource type="PackedScene" uid="uid://bbbvo8qcqgmgw" path="res://player/player.tscn" id="2_tm0cr"]
+[ext_resource type="PackedScene" uid="uid://xbc6fajc2y3q" path="res://MenegemLevl/inimigo_spawn_1.tscn" id="3_aawx3"]
+[ext_resource type="Script" uid="uid://84hxkcy3ta27" path="res://MenegemLevl/inimigo_spawn.gd" id="3_to5uw"]
+[ext_resource type="PackedScene" uid="uid://f6farj8tldys" path="res://interface/interface.tscn" id="5_s1jif"]
+
+[node name="GAMEÇEVEL" type="Node2D"]
+
+[node name="Level1" parent="." instance=ExtResource("1_to5uw")]
+
+[node name="PLAYER" parent="." instance=ExtResource("2_tm0cr")]
+position = Vector2(527, 296)
+
+[node name="Inimigos_Espawn" type="Node2D" parent="." node_paths=PackedStringArray("_inimigo_timer", "_inimigo_spawn_cooldown")]
+script = ExtResource("3_to5uw")
+_inimigo_timer = NodePath("Inimigo_timer")
+_inimigo_spawn_cooldown = NodePath("Inimigo_sapown_coodown")
+
+[node name="Inimigo_spawn_1" parent="Inimigos_Espawn" instance=ExtResource("3_aawx3")]
+position = Vector2(1045, 694)
+
+[node name="Inimigo_spawn_2" parent="Inimigos_Espawn" instance=ExtResource("3_aawx3")]
+position = Vector2(1751, 489)
+
+[node name="Inimigo_spawn_3" parent="Inimigos_Espawn" instance=ExtResource("3_aawx3")]
+position = Vector2(1631, 124)
+
+[node name="Inimigo_spawn_4" parent="Inimigos_Espawn" instance=ExtResource("3_aawx3")]
+position = Vector2(335, 854)
+
+[node name="Inimigo_spawn_5" parent="Inimigos_Espawn" instance=ExtResource("3_aawx3")]
+position = Vector2(1617, 887)
+
+[node name="Inimigo_timer" type="Timer" parent="Inimigos_Espawn"]
+one_shot = true
+
+[node name="Inimigo_sapown_coodown" type="Timer" parent="Inimigos_Espawn"]
+one_shot = true
+
+[node name="Interface" parent="." instance=ExtResource("5_s1jif")]
+
+[connection signal="timeout" from="Inimigos_Espawn/Inimigo_timer" to="Inimigos_Espawn" method="_on_inimigo_timer_timeout"]
+[connection signal="timeout" from="Inimigos_Espawn/Inimigo_sapown_coodown" to="Inimigos_Espawn" method="_on_inimigo_sapown_coodown_timeout"]

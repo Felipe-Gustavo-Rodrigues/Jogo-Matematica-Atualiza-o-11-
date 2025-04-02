@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://xbc6fajc2y3q"]
+
+[node name="Inimigo_spawn_1" type="Node2D"]
+scale = Vector2(4, 4)
+
+[node name="Spown_position_1" type="Marker2D" parent="."]
+position = Vector2(8.75, -5)
+
+[node name="Spown_position_2" type="Marker2D" parent="."]
+position = Vector2(13, -0.5)
+
+[node name="Spown_position_3" type="Marker2D" parent="."]
+position = Vector2(-14.5, -6.5)
+
+[node name="Spown_position_7" type="Marker2D" parent="."]
+position = Vector2(-3.25, 16.5)
+
+[node name="Spown_position_4" type="Marker2D" parent="."]
+position = Vector2(-13.25, 8)
+
+[node name="Spown_position_5" type="Marker2D" parent="."]
+position = Vector2(3, -8.5)
+
+[node name="Spown_position_6" type="Marker2D" parent="."]
+position = Vector2(2.5, 6)
+
+[node name="Spown_position_8" type="Marker2D" parent="."]
+position = Vector2(-5.25, -5.75)
+
+[node name="Spown_position_9" type="Marker2D" parent="."]
+position = Vector2(-7.75, 3.5)
+
+[node name="Spown_position_10" type="Marker2D" parent="."]
+position = Vector2(-21.5, 1)
+
+[node name="Spown_position_11" type="Marker2D" parent="."]
+position = Vector2(6.5, 2.25)
+
+[node name="Spown_position_12" type="Marker2D" parent="."]
+position = Vector2(0.25, 10.75)

@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://f6farj8tldys"]
+
+[ext_resource type="Script" uid="uid://mnxbcs1tds8c" path="res://interface/interface.gd" id="1_0c05b"]
+[ext_resource type="FontFile" uid="uid://dxbnfx1x6tlmu" path="res://Assets (GERAL)/assets/interface/fonts/kaph.ttf" id="1_6nxxo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0c05b"]
+font = ExtResource("1_6nxxo")
+font_size = 22
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_color = Color(0, 0, 0, 0.6)
+shadow_offset = Vector2(2, 2)
+
+[node name="Interface" type="CanvasLayer"]
+script = ExtResource("1_0c05b")
+
+[node name="WaveAndTime" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -117.0
+offset_top = 54.0
+offset_right = 130.0
+offset_bottom = 95.0
+grow_horizontal = 2
+text = "Onda 7
+Tempo restante:00:30"
+label_settings = SubResource("LabelSettings_0c05b")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true

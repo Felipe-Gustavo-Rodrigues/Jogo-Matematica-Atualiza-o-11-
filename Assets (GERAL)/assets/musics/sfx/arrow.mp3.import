@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cy6ioyjnaiu2j"
+path="res://.godot/imported/arrow.mp3-5234ebb4ad9b75fb4d797fc08cf03931.mp3str"
+
+[deps]
+
+source_file="res://Assets (GERAL)/assets/musics/sfx/arrow.mp3"
+dest_files=["res://.godot/imported/arrow.mp3-5234ebb4ad9b75fb4d797fc08cf03931.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

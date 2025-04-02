@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbbvo8qcqgmgw"]
+
+[ext_resource type="Texture2D" uid="uid://db47s0bwgywar" path="res://Assets (GERAL)/assets/spritesheet.png" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://btdm34gyiilof" path="res://player.gd" id="1_i3pqv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4flbx"]
+radius = 21.0
+
+[node name="PLAYER" type="CharacterBody2D"]
+script = ExtResource("1_i3pqv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_4flbx")
+region_enabled = true
+region_rect = Rect2(0, 512, 64, 64)
+
+[node name="CAMERA" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+editor_draw_drag_margin = true
+
+[node name="COLISÃO" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_4flbx")
+
+[node name="ArmasFilhas" type="Node2D" parent="."]
+
+[node name="Arma1" type="Marker2D" parent="ArmasFilhas"]
+position = Vector2(96, 0)
+
+[node name="TexturaArma" type="Sprite2D" parent="ArmasFilhas/Arma1"]
+
+[node name="Arma2" type="Marker2D" parent="ArmasFilhas"]
+position = Vector2(-96, 0)
+
+[node name="TexturaArma2" type="Sprite2D" parent="ArmasFilhas/Arma2"]
+
+[node name="Arma3" type="Marker2D" parent="ArmasFilhas"]
+position = Vector2(64, 64)
+
+[node name="TexturaArma3" type="Sprite2D" parent="ArmasFilhas/Arma3"]
+
+[node name="arma4" type="Marker2D" parent="ArmasFilhas"]
+position = Vector2(64, -64)
+
+[node name="TexturaArma4" type="Sprite2D" parent="ArmasFilhas/arma4"]
+
+[node name="Arma5" type="Marker2D" parent="ArmasFilhas"]
+position = Vector2(-64, 64)
+
+[node name="TexturaArma5" type="Sprite2D" parent="ArmasFilhas/Arma5"]
+
+[node name="Arma6" type="Marker2D" parent="ArmasFilhas"]
+position = Vector2(-64, -65)
+
+[node name="TexturaArma6" type="Sprite2D" parent="ArmasFilhas/Arma6"]

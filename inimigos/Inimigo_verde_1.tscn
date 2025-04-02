@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://mdih8vhx8g28"]
+
+[ext_resource type="PackedScene" uid="uid://b67fa8aamrhyo" path="res://inimigos/inimigos_de_base.tscn" id="1_u7mud"]
+
+[node name="Inimigo_1" instance=ExtResource("1_u7mud")]
+_damage = 2
+_invincibility_cooldoon = 0.15
+
+[node name="Textura" parent="." index="0"]
+position = Vector2(0, -1)
+region_rect = Rect2(384, 512, 64, 64)
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(-2, -2)

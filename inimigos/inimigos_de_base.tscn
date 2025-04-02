@@ -1,0 +1,155 @@
+[gd_scene load_steps=15 format=3 uid="uid://b67fa8aamrhyo"]
+
+[ext_resource type="Script" uid="uid://bbsy5ntqdnuwx" path="res://inimigos/inimigo.gd" id="1_24jc1"]
+[ext_resource type="Texture2D" uid="uid://db47s0bwgywar" path="res://Assets (GERAL)/assets/spritesheet.png" id="1_y2cd2"]
+[ext_resource type="Shader" uid="uid://b805sikk6kcay" path="res://inimigos/inimigos_hit.gdshader" id="2_faa6o"]
+[ext_resource type="PackedScene" uid="uid://bg2l8bjf3e738" path="res://particulas/particulas_base.tscn" id="3_tqiwb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tqiwb"]
+resource_local_to_scene = true
+shader = ExtResource("2_faa6o")
+shader_parameter/_is_active = false
+
+[sub_resource type="Animation" id="Animation_tqiwb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_24jc1"]
+resource_name = "scale"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.3, 1.3), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_faa6o"]
+_data = {
+&"RESET": SubResource("Animation_tqiwb"),
+&"scale": SubResource("Animation_24jc1")
+}
+
+[sub_resource type="Animation" id="Animation_02qo0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/_is_active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_8wfv4"]
+resource_name = "hit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/_is_active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_crr6q"]
+_data = {
+&"RESET": SubResource("Animation_02qo0"),
+&"hit": SubResource("Animation_8wfv4")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y2cd2"]
+radius = 24.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_24jc1"]
+radius = 120.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tqiwb"]
+radius = 16.0
+
+[node name="Inimigos_de_base" type="CharacterBody2D" node_paths=PackedStringArray("_hitbox_are", "_dash_wait_time", "_dash_timer", "_invencibili_timer", "_auxiliar_animation")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_24jc1")
+_hitbox_are = NodePath("HeatboxArea")
+_dash_wait_time = NodePath("DashTempo")
+_dash_timer = NodePath("DashTimer")
+_invencibili_timer = NodePath("HeatboxArea/InvencibiliTimer")
+_auxiliar_animation = NodePath("Textura/Animationhit")
+
+[node name="Textura" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_tqiwb")
+texture = ExtResource("1_y2cd2")
+region_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Textura"]
+libraries = {
+&"": SubResource("AnimationLibrary_faa6o")
+}
+autoplay = "scale"
+
+[node name="Animationhit" type="AnimationPlayer" parent="Textura"]
+libraries = {
+&"": SubResource("AnimationLibrary_crr6q")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_y2cd2")
+
+[node name="Area_aucance" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area_aucance"]
+visible = false
+shape = SubResource("CircleShape2D_24jc1")
+
+[node name="DashTempo" type="Timer" parent="."]
+one_shot = true
+
+[node name="DashTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="HeatboxArea" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="HeatboxArea"]
+shape = SubResource("CircleShape2D_tqiwb")
+
+[node name="InvencibiliTimer" type="Timer" parent="HeatboxArea"]
+wait_time = 0.5
+one_shot = true
+
+[node name="CPUParticles2D" parent="." instance=ExtResource("3_tqiwb")]
+
+[connection signal="body_entered" from="Area_aucance" to="." method="_on_area_aucance_body_entered"]
+[connection signal="timeout" from="DashTempo" to="." method="_on_dash_tempo_timeout"]
+[connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="DashTimer" to="." method="_on_dash_tempo_timeout"]
+[connection signal="body_entered" from="HeatboxArea" to="." method="_on_heatbox_area_body_entered"]
+[connection signal="timeout" from="HeatboxArea/InvencibiliTimer" to="." method="_on_invencibili_timer_timeout"]
