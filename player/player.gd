@@ -69,3 +69,8 @@ func update_health(_type: String, _value) ->void:
 			_health += _value
 			if  _health > _max_health:
 				_health = _max_health
+				
+func reset_health()->void:
+	print(" Antiga VIda do personagem ", str(_health))
+	_health = _max_health
+	print("VIda do personagem ", str(_health))

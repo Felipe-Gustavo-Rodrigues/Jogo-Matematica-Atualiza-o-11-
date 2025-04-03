@@ -15,6 +15,7 @@ position = Vector2(527, 296)
 
 [node name="Inimigos_Espawn" type="Node2D" parent="." node_paths=PackedStringArray("_inimigo_timer", "_inimigo_spawn_cooldown", "interface", "player")]
 script = ExtResource("3_to5uw")
+posicion_initial = null
 _inimigo_timer = NodePath("Inimigo_timer")
 _inimigo_spawn_cooldown = NodePath("Inimigo_sapown_coodown")
 interface = NodePath("../Interface")

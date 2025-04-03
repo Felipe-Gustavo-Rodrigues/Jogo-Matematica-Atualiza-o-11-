@@ -20,7 +20,6 @@ func _on_detectar_area_body_entered(_body: Node2D) -> void:
 		_atack_timer.start(_atack_cooldown)
 		_animacao.play("ataque")
 		_detectar_area.set_deferred("monitoring", false)
-		
 
 func _on_timer_timeout() -> void:
 	_is_atack = false

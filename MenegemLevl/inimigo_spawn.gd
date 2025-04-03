@@ -7,7 +7,7 @@ const INIMIGO_3: PackedScene = preload("res://inimigos/inimigos_roxos_3.tscn")
 
 var _waves_dict: Dictionary = {
 	1: {
-		"inimi_time": 20,
+		"inimi_time": 6,
 		"inimi_spaw_coodown": 4,
 		"inimi_numero": 1,
 		"spots_amount": [3, 6],
@@ -17,34 +17,43 @@ var _waves_dict: Dictionary = {
 		"inimi_time": 30,
 		"inimi_spaw_coodown": 3,
 		"inimi_numero": 4,
-		"spots_amount": [4, 8],
-		"inimi_dificult": "ease"
+		"spots_amount": [3, 6],
+		"inimi_dificult": "medium"
 	} 
 }
 
 var _current_wave: int = 1
+@export_category("Variebles")
+@export var posicion_initial: Vector2 = Vector2(888, 666)
 
 @export_category("Objetos") 
 @export var _inimigo_timer: Timer
 @export var _inimigo_spawn_cooldown: Timer
+@export var interface: CanvasLayer = null
+@export var player: Jogador = null
 
 func _ready() -> void:
+	interface.update_wave_and_time_label(_current_wave, _inimigo_timer.time_left-1)
 	_inimigo_timer.start(_waves_dict[_current_wave]["inimi_time"])
 	_inimigo_spawn_cooldown.start(_waves_dict[_current_wave]["inimi_spaw_coodown"])
 	_spawn_inimigos()
 
 func _on_inimigo_timer_timeout() -> void:
 	_current_wave += 1
-	if _current_wave > 5:
+	if _current_wave > 10:
 		print("Você ganhou")
 		return
+	#get_tree().paused = true
+	_clear_map()
 	_inimigo_timer.start(_waves_dict[_current_wave]["inimi_time"])
 
 func _on_inimigo_spawn_cooldown_timeout() -> void:
+	print("Timeout do spawn foi chamado na onda", _current_wave)
 	_spawn_inimigos()
 	_inimigo_spawn_cooldown.start(_waves_dict[_current_wave]["inimi_spaw_coodown"])
 
 func _spawn_inimigos() -> void:
+
 	if _current_wave in _waves_dict:
 		var _amount_range: Array = _waves_dict[_current_wave]["spots_amount"]
 		var _amount: int = randi_range(_amount_range[0], _amount_range[1])
@@ -112,3 +121,17 @@ func _spawn_inimigo(_spawer: Node2D) ->void:
 				inimigo = INIMIGO_3.instantiate()
 	inimigo.global_position=_spawer.global_position
 	get_parent().call_deferred("add_child", inimigo)
+
+func _on_curent_timer_timer_timeout() -> void:
+	interface.update_wave_and_time_label(_current_wave, _inimigo_timer.time_left)
+
+func _clear_map()->void:
+	for _children in get_parent().get_children():
+		if _children is Enemy:
+			_children.queue_free()
+	start_new_wave()
+
+func start_new_wave() -> void:
+	_inimigo_timer.start(_waves_dict[_current_wave]["inimi_time"])
+	player.global_position = posicion_initial
+	player.reset_health()

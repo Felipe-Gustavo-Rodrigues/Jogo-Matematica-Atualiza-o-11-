@@ -5,6 +5,7 @@ class_name Enemy
 var _loading_dash:bool=false
 var _is_dash: bool=false
 var _posicion_anterior:Vector2
+var TEXT_POPUP:PackedScene = preload("res://interface/text_popup.tscn")
 var _EXPLOSAO:PackedScene = preload("res://particulas/Particula_exVermelho.tscn")
 
 @export_category("Variables")
@@ -62,9 +63,15 @@ func update_health(_value: int) -> void:
 		_spawn_explosion_particles()
 		queue_free()
 		return
-		
+	_spawn_text_popup(_value)
 	
 	get_tree().call_group("play_camera", "shack", 3.0, 0.05)
+	
+func _spawn_text_popup(_value:int)->void:
+	var _popup: TextPop = TEXT_POPUP.instantiate()
+	_popup.ulpdate_text(_value)
+	_popup.global_position=global_position
+	get_tree().root.call_deferred("add_child", _popup)
 	
 func _spawn_explosion_particles() -> void:
 	var _particles: CPUParticles2D = _EXPLOSAO.instantiate()

@@ -11,8 +11,9 @@ outline_color = Color(0, 0, 0, 1)
 shadow_color = Color(0, 0, 0, 0.6)
 shadow_offset = Vector2(2, 2)
 
-[node name="Interface" type="CanvasLayer"]
+[node name="Interface" type="CanvasLayer" node_paths=PackedStringArray("_wave_and_time")]
 script = ExtResource("1_0c05b")
+_wave_and_time = NodePath("WaveAndTime")
 
 [node name="WaveAndTime" type="Label" parent="."]
 anchors_preset = 5
