@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://n032qansgl6b"]
+
+[ext_resource type="Script" uid="uid://g82cuat0026v" path="res://coin.gd" id="1_xjg5q"]
+[ext_resource type="Texture2D" uid="uid://ckwdpon5kfxl1" path="res://Assets (GERAL)/assets/icons/money/coin.png" id="2_e2be2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n8tk5"]
+radius = 20.025
+
+[node name="Coin" type="Area2D" groups=["coins"]]
+script = ExtResource("1_xjg5q")
+_value_range = Array[int]([1, 7])
+
+[node name="TextriCoin" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_e2be2")
+
+[node name="COlisao" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_n8tk5")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4ge8vsl3easn"]
+
+[ext_resource type="Script" uid="uid://bucd66dx0v5tf" path="res://armas/arco/flecha.gd" id="1_pgbd4"]
+[ext_resource type="Texture2D" uid="uid://db47s0bwgywar" path="res://Assets (GERAL)/assets/spritesheet.png" id="1_tvie6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pgbd4"]
+size = Vector2(27.4967, 15.5071)
+
+[node name="flecha" type="Area2D" groups=["arrow"]]
+light_mask = 3
+visibility_layer = 3
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_pgbd4")
+move_speed = 300.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(2.121, -0.5)
+scale = Vector2(1.89326, -0.580379)
+shape = SubResource("RectangleShape2D_pgbd4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -5)
+rotation = 1.5708
+texture = ExtResource("1_tvie6")
+region_enabled = true
+region_rect = Rect2(443, 578, 64, 64)
+
+[connection signal="body_entered" from="." to="." method="_on_area_ataque_body_entered"]

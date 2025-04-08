@@ -44,7 +44,8 @@ one_shot = true
 [node name="CurentTimerTimer" type="Timer" parent="Inimigos_Espawn"]
 autostart = true
 
-[node name="Interface" parent="." instance=ExtResource("5_s1jif")]
+[node name="Interface" parent="." node_paths=PackedStringArray("wave_managem") instance=ExtResource("5_s1jif")]
+wave_managem = NodePath("../Inimigos_Espawn")
 
 [connection signal="timeout" from="Inimigos_Espawn/Inimigo_timer" to="Inimigos_Espawn" method="_on_inimigo_timer_timeout"]
 [connection signal="timeout" from="Inimigos_Espawn/Inimigo_sapown_coodown" to="Inimigos_Espawn" method="_on_inimigo_sapown_coodown_timeout"]

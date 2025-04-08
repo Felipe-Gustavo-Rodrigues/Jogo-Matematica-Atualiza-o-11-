@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://f6farj8tldys"]
+[gd_scene load_steps=29 format=3 uid="uid://f6farj8tldys"]
 
 [ext_resource type="Script" uid="uid://mnxbcs1tds8c" path="res://interface/interface.gd" id="1_0c05b"]
 [ext_resource type="FontFile" uid="uid://dxbnfx1x6tlmu" path="res://Assets (GERAL)/assets/interface/fonts/kaph.ttf" id="1_6nxxo"]
+[ext_resource type="Texture2D" uid="uid://ckwdpon5kfxl1" path="res://Assets (GERAL)/assets/icons/money/coin.png" id="3_athsf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0c05b"]
 font = ExtResource("1_6nxxo")
@@ -11,9 +12,67 @@ outline_color = Color(0, 0, 0, 1)
 shadow_color = Color(0, 0, 0, 0.6)
 shadow_offset = Vector2(2, 2)
 
-[node name="Interface" type="CanvasLayer" node_paths=PackedStringArray("_wave_and_time")]
+[sub_resource type="LabelSettings" id="LabelSettings_athsf"]
+font = ExtResource("1_6nxxo")
+font_size = 22
+font_color = Color(0, 0, 0, 1)
+outline_size = 4
+
+[sub_resource type="LabelSettings" id="LabelSettings_o02ce"]
+font = ExtResource("1_6nxxo")
+font_size = 22
+font_color = Color(0, 0, 0, 1)
+outline_size = 4
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_athsf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0scnv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_talkl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1df0r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ai3xk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gu1y1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c13xy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_13l2x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jq8fa"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_21s64"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y6t7f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o02ce"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qfydk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xqxdt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dnkkt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sps04"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b315h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dlqrx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fslxw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vd6wu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ycxg8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pel1q"]
+
+[node name="Interface" type="CanvasLayer" node_paths=PackedStringArray("_wave_and_time", "_slots_conteiner")]
+process_mode = 3
 script = ExtResource("1_0c05b")
 _wave_and_time = NodePath("WaveAndTime")
+_slots_conteiner = NodePath("BetweenWavesCOntainer/Background/HConteiner")
 
 [node name="WaveAndTime" type="Label" parent="."]
 anchors_preset = 5
@@ -28,5 +87,326 @@ text = "Onda 7
 Tempo restante:00:30"
 label_settings = SubResource("LabelSettings_0c05b")
 horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="BetweenWavesCOntainer" type="Control" parent="."]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="BetweenWavesCOntainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.145098, 0.145098, 0.145098, 0.631373)
+
+[node name="HConteiner" type="HBoxContainer" parent="BetweenWavesCOntainer/Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -512.0
+offset_top = -220.0
+offset_right = 512.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Slot!" type="ColorRect" parent="BetweenWavesCOntainer/Background/HConteiner"]
+custom_minimum_size = Vector2(320, 440)
+layout_mode = 2
+color = Color(1, 1, 1, 0.929412)
+
+[node name="VContener" type="VBoxContainer" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!/VContener"]
+layout_mode = 2
+text = "Arco LEvel 1]"
+label_settings = SubResource("LabelSettings_athsf")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="MargenMidle" type="Control" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!/VContener"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="HConteiner" type="HBoxContainer" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!/VContener"]
+custom_minimum_size = Vector2(0, 240)
+layout_mode = 2
+alignment = 1
+
+[node name="Descript" type="Label" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!/VContener/HConteiner"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+text = "Desboquei o arco, uma arma de longa distância (1.2s de recargar | 10 dano)"
+label_settings = SubResource("LabelSettings_o02ce")
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginBotton" type="Control" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!/VContener"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="ButtonCOnteiner" type="HBoxContainer" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!/VContener"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+alignment = 1
+
+[node name="Chose" type="Button" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!/VContener/ButtonCOnteiner" groups=["chose_button"]]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.72549, 0.737255, 0, 1)
+theme_override_fonts/font = ExtResource("1_6nxxo")
+theme_override_font_sizes/font_size = 19
+theme_override_styles/focus = SubResource("StyleBoxEmpty_athsf")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_0scnv")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_talkl")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_1df0r")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_ai3xk")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_gu1y1")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_c13xy")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_13l2x")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jq8fa")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_21s64")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_y6t7f")
+text = "Selecionar (30g)"
+flat = true
+
+[node name="Slot!2" type="ColorRect" parent="BetweenWavesCOntainer/Background/HConteiner"]
+custom_minimum_size = Vector2(320, 440)
+layout_mode = 2
+color = Color(1, 1, 1, 0.929412)
+
+[node name="VContener" type="VBoxContainer" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!2/VContener"]
+layout_mode = 2
+text = "Arco LEvel 1]"
+label_settings = SubResource("LabelSettings_athsf")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="MargenMidle" type="Control" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!2/VContener"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="HConteiner" type="HBoxContainer" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!2/VContener"]
+custom_minimum_size = Vector2(0, 240)
+layout_mode = 2
+alignment = 1
+
+[node name="Descript" type="Label" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!2/VContener/HConteiner"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+text = "Desboquei o arco, uma arma de longa distância (1.2s de recargar | 10 dano)"
+label_settings = SubResource("LabelSettings_o02ce")
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginBotton" type="Control" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!2/VContener"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="ButtonCOnteiner" type="HBoxContainer" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!2/VContener"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+alignment = 1
+
+[node name="Chose" type="Button" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!2/VContener/ButtonCOnteiner" groups=["chose_button"]]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.72549, 0.737255, 0, 1)
+theme_override_fonts/font = ExtResource("1_6nxxo")
+theme_override_font_sizes/font_size = 19
+theme_override_styles/focus = SubResource("StyleBoxEmpty_athsf")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_0scnv")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_talkl")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_1df0r")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_ai3xk")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_gu1y1")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_c13xy")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_13l2x")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jq8fa")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_21s64")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_y6t7f")
+text = "Selecionar (30g)"
+flat = true
+
+[node name="Slot!3" type="ColorRect" parent="BetweenWavesCOntainer/Background/HConteiner"]
+custom_minimum_size = Vector2(320, 440)
+layout_mode = 2
+color = Color(1, 1, 1, 0.929412)
+
+[node name="VContener" type="VBoxContainer" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!3/VContener"]
+layout_mode = 2
+text = "Arco LEvel 1]"
+label_settings = SubResource("LabelSettings_athsf")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="MargenMidle" type="Control" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!3/VContener"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="HConteiner" type="HBoxContainer" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!3/VContener"]
+custom_minimum_size = Vector2(0, 240)
+layout_mode = 2
+alignment = 1
+
+[node name="Descript" type="Label" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!3/VContener/HConteiner"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+text = "Desboquei o arco, uma arma de longa distância (1.2s de recargar | 10 dano)"
+label_settings = SubResource("LabelSettings_o02ce")
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginBotton" type="Control" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!3/VContener"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="ButtonCOnteiner" type="HBoxContainer" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!3/VContener"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+alignment = 1
+
+[node name="Chose" type="Button" parent="BetweenWavesCOntainer/Background/HConteiner/Slot!3/VContener/ButtonCOnteiner" groups=["chose_button"]]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.72549, 0.737255, 0, 1)
+theme_override_fonts/font = ExtResource("1_6nxxo")
+theme_override_font_sizes/font_size = 19
+theme_override_styles/focus = SubResource("StyleBoxEmpty_athsf")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_0scnv")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_talkl")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_1df0r")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_ai3xk")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_gu1y1")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_c13xy")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_13l2x")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jq8fa")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_21s64")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_y6t7f")
+text = "Selecionar (30g)"
+flat = true
+
+[node name="Rerrol" type="Button" parent="BetweenWavesCOntainer/Background" groups=["chose_button"]]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -53.0
+offset_right = 130.0
+offset_bottom = -20.0
+grow_vertical = 0
+theme_override_colors/icon_hover_color = Color(0.385493, 0.385493, 0.385492, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.972549, 0, 1)
+theme_override_fonts/font = ExtResource("1_6nxxo")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/focus = SubResource("StyleBoxEmpty_o02ce")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_qfydk")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_xqxdt")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_dnkkt")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_sps04")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_b315h")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_dlqrx")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_fslxw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_vd6wu")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_ycxg8")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pel1q")
+text = "ROdar"
+
+[node name="Skip" type="Button" parent="BetweenWavesCOntainer/Background" groups=["chose_button"]]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -130.0
+offset_top = -49.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/icon_hover_color = Color(0.223103, 0.223103, 0.223103, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.972549, 0, 1)
+theme_override_fonts/font = ExtResource("1_6nxxo")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/focus = SubResource("StyleBoxEmpty_o02ce")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_qfydk")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_xqxdt")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_dnkkt")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_sps04")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_b315h")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_dlqrx")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_fslxw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_vd6wu")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_ycxg8")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pel1q")
+text = "Skip
+"
+
+[node name="CoinsCOnteiner" type="HBoxContainer" parent="."]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 78.0
+offset_bottom = 56.0
+
+[node name="TextureRect" type="TextureRect" parent="CoinsCOnteiner"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("3_athsf")
+expand_mode = 1
+
+[node name="Amount" type="Label" parent="CoinsCOnteiner"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_0c05b")
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true

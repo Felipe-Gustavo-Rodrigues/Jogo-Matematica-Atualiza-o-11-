@@ -1,0 +1,109 @@
+[gd_scene load_steps=15 format=3 uid="uid://c7ftiscn7h31v"]
+
+[ext_resource type="Texture2D" uid="uid://bq80m5rure6es" path="res://imagens/Sprites de movimento/Sprites de movimento/Inimigo sprite.png" id="3_vwpka"]
+
+[sub_resource type="Animation" id="Animation_eriao"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_y1ywk"]
+resource_name = "frente"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q1qup"]
+_data = {
+&"RESET": SubResource("Animation_eriao"),
+&"frente": SubResource("Animation_y1ywk")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nygpl"]
+atlas = ExtResource("3_vwpka")
+region = Rect2(13, 0, 24, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwpka"]
+atlas = ExtResource("3_vwpka")
+region = Rect2(37, 0, 24, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7ics"]
+atlas = ExtResource("3_vwpka")
+region = Rect2(61, 0, 24, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86au8"]
+atlas = ExtResource("3_vwpka")
+region = Rect2(13, 46, 24, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xg8ns"]
+atlas = ExtResource("3_vwpka")
+region = Rect2(37, 46, 24, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uftwo"]
+atlas = ExtResource("3_vwpka")
+region = Rect2(61, 46, 24, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h304e"]
+atlas = ExtResource("3_vwpka")
+region = Rect2(13, 23, 24, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ya8xw"]
+atlas = ExtResource("3_vwpka")
+region = Rect2(37, 23, 24, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nouxv"]
+atlas = ExtResource("3_vwpka")
+region = Rect2(61, 23, 24, 23)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i6mjp"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nygpl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwpka")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u7ics")
+}],
+"loop": true,
+"name": &"frente",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_86au8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xg8ns")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uftwo")
+}],
+"loop": true,
+"name": &"lado",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h304e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ya8xw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nouxv")
+}],
+"loop": true,
+"name": &"tras",
+"speed": 5.0
+}]
+
+[node name="Animation_inimigo" type="Node2D"]
+
+[node name="Inimigo_direcao" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_q1qup")
+}
+
+[node name="lado" type="AnimatedSprite2D" parent="Inimigo_direcao"]
+sprite_frames = SubResource("SpriteFrames_i6mjp")
+animation = &"frente"
+frame_progress = 0.424753

@@ -5,6 +5,17 @@ class_name Enemy
 var _loading_dash:bool=false
 var _is_dash: bool=false
 var _posicion_anterior:Vector2
+var _coins: Dictionary={
+	"coin":{
+		"spawn_prob": 0.8,
+		"scene_path":preload("res://acessorios/coin.tscn")
+	},
+	"diamante":{
+		"spawn_prob": 0.2,
+		"scene_path":preload("res://acessorios/diamont.tscn")
+	}
+	
+}
 var TEXT_POPUP:PackedScene = preload("res://interface/text_popup.tscn")
 var _EXPLOSAO:PackedScene = preload("res://particulas/Particula_exVermelho.tscn")
 
@@ -24,6 +35,7 @@ var _EXPLOSAO:PackedScene = preload("res://particulas/Particula_exVermelho.tscn"
 @export var _dash_timer:Timer
 @export var _invencibili_timer:Timer
 @export var _auxiliar_animation: AnimationPlayer
+@export var anim_sprite:AnimatedSprite2D 
 
 func _physics_process(_delta: float) -> void:
 	if _loading_dash:
@@ -46,27 +58,61 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 func _chase(_direction:Vector2) -> void:
 	velocity = _direction * _move_speed
+	animação_andar(_direction)
 
 func _chase_and_dash(_direction:Vector2) -> void:
+	var _direction_uso:Vector2
 	if not _is_dash:
 		velocity=_direction*_move_speed
+		_direction_uso=_direction
 	if _is_dash:
-		_direction = global_position.direction_to(_posicion_anterior)
-		velocity=_direction*_dash_speed
+		var _dash_direction = global_position.direction_to(_posicion_anterior)
+		velocity=_dash_direction*_dash_speed
+		_direction_uso=_dash_direction
+	animação_andar(_direction_uso)
 		
-		
+func animação_andar(_direcao:Vector2)-> void:
+	if abs(_direcao.x) > abs(_direcao.y):
+		if _direcao.x > 0:
+			if anim_sprite.animation != "esquerda":
+				anim_sprite.play("esquerda")
+				anim_sprite.flip_h=false
+		else:
+			if anim_sprite.animation != "esquerda":
+				anim_sprite.play("esquerda")
+				anim_sprite.flip_h=true
+	else:
+		if _direcao.y > 0:
+			if anim_sprite.animation != "frente":
+				anim_sprite.play("frente")
+				anim_sprite.flip_h=false
+		else:
+			if anim_sprite.animation != "tras":
+				anim_sprite.play("tras")
+				anim_sprite.flip_h=false
+
+
 func update_health(_value: int) -> void:
 	_health -= _value
 	_auxiliar_animation.play("hit")
 	if _health <= 0:
-		get_tree().call_group("play_camera", "shack", 6.0, 0.10)
+		get_tree().call_group("play_camera", "shack", 2.0, 0.3)
+		_spawn_coins()
 		_spawn_explosion_particles()
 		queue_free()
 		return
 	_spawn_text_popup(_value)
 	
-	get_tree().call_group("play_camera", "shack", 3.0, 0.05)
+	get_tree().call_group("play_camera", "shack", 1.0, 0.3)
 	
+func _spawn_coins()->void:
+	for _coin in _coins:
+		var _randf : float=randf()
+		if _randf <= _coins[_coin]["spawn_prob"]:
+			var _coin_scene: Coin = _coins[_coin]["scene_path"].instantiate()
+			get_tree().root.call_deferred("add_child", _coin_scene)
+			_coin_scene.global_position = global_position
+			
 func _spawn_text_popup(_value:int)->void:
 	var _popup: TextPop = TEXT_POPUP.instantiate()
 	_popup.ulpdate_text(_value)

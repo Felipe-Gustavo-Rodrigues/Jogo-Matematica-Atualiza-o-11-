@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dvnesdg87h0yn"]
+[gd_scene load_steps=5 format=3 uid="uid://dvnesdg87h0yn"]
 
 [ext_resource type="Texture2D" uid="uid://b0trn4mtov35x" path="res://Assets (GERAL)/assets/icons/particles.png" id="1_s367d"]
+[ext_resource type="Script" uid="uid://6yqqjh25qmf" path="res://particulas/particles.gd" id="2_dmu82"]
 
 [sub_resource type="Curve" id="Curve_dmu82"]
 _data = [Vector2(0.0113636, 0.0786518), 0.0, 0.0, 0, 0, Vector2(0.982955, 0), 0.0, 0.0, 0, 0]
@@ -25,3 +26,11 @@ initial_velocity_min = 100.0
 initial_velocity_max = 100.0
 scale_amount_curve = SubResource("Curve_dmu82")
 color_ramp = SubResource("Gradient_k73cu")
+script = ExtResource("2_dmu82")
+
+[node name="LifeTime" type="Timer" parent="." groups=["particles"]]
+wait_time = 0.8
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="LifeTime" to="." method="_on_life_time_timeout"]

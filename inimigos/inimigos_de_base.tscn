@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://b67fa8aamrhyo"]
+[gd_scene load_steps=33 format=3 uid="uid://b67fa8aamrhyo"]
 
 [ext_resource type="Script" uid="uid://bbsy5ntqdnuwx" path="res://inimigos/inimigo.gd" id="1_24jc1"]
 [ext_resource type="Texture2D" uid="uid://db47s0bwgywar" path="res://Assets (GERAL)/assets/spritesheet.png" id="1_y2cd2"]
 [ext_resource type="Shader" uid="uid://b805sikk6kcay" path="res://inimigos/inimigos_hit.gdshader" id="2_faa6o"]
 [ext_resource type="PackedScene" uid="uid://bg2l8bjf3e738" path="res://particulas/particulas_base.tscn" id="3_tqiwb"]
+[ext_resource type="Texture2D" uid="uid://bq80m5rure6es" path="res://imagens/Sprites de movimento/Sprites de movimento/Inimigo sprite.png" id="5_8wfv4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tqiwb"]
 resource_local_to_scene = true
@@ -84,24 +85,182 @@ _data = {
 &"hit": SubResource("Animation_8wfv4")
 }
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_86au8"]
+atlas = ExtResource("5_8wfv4")
+region = Rect2(13, 46, 24, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xg8ns"]
+atlas = ExtResource("5_8wfv4")
+region = Rect2(37, 46, 24, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uftwo"]
+atlas = ExtResource("5_8wfv4")
+region = Rect2(61, 46, 24, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_crr6q"]
+atlas = ExtResource("5_8wfv4")
+region = Rect2(43, 47, 21, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wfv4"]
+atlas = ExtResource("5_8wfv4")
+region = Rect2(63, 47, 25, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02qo0"]
+atlas = ExtResource("5_8wfv4")
+region = Rect2(17, 47, 25, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1gdo0"]
+atlas = ExtResource("5_8wfv4")
+region = Rect2(44, 1, 21, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cotpb"]
+atlas = ExtResource("5_8wfv4")
+region = Rect2(63, 1, 21, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dc4ym"]
+atlas = ExtResource("5_8wfv4")
+region = Rect2(18, 1, 21, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ydrno"]
+atlas = ExtResource("5_8wfv4")
+region = Rect2(16, 47, 21, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8r8ko"]
+atlas = ExtResource("5_8wfv4")
+region = Rect2(16, 47, 21, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a3u4g"]
+atlas = ExtResource("5_8wfv4")
+region = Rect2(16, 1, 21, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2r4s1"]
+atlas = ExtResource("5_8wfv4")
+region = Rect2(16, 24, 21, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7hsa"]
+atlas = ExtResource("5_8wfv4")
+region = Rect2(62, 24, 21, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h304e"]
+atlas = ExtResource("5_8wfv4")
+region = Rect2(13, 23, 24, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_skspw"]
+atlas = ExtResource("5_8wfv4")
+region = Rect2(42, 24, 21, 23)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_02qo0"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_86au8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xg8ns")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uftwo")
+}],
+"loop": true,
+"name": &"direita",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_crr6q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wfv4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_02qo0")
+}],
+"loop": true,
+"name": &"esquerda",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1gdo0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cotpb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dc4ym")
+}],
+"loop": true,
+"name": &"frente",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ydrno")
+}],
+"loop": true,
+"name": &"parado_direita",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8r8ko")
+}],
+"loop": true,
+"name": &"parado_esquerda",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a3u4g")
+}],
+"loop": true,
+"name": &"parado_frente",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2r4s1")
+}],
+"loop": true,
+"name": &"parado_tras",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7hsa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h304e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_skspw")
+}],
+"loop": true,
+"name": &"tras",
+"speed": 5.0
+}]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_y2cd2"]
 radius = 24.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_24jc1"]
-radius = 120.0
+radius = 140.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tqiwb"]
-radius = 16.0
+radius = 36.8782
 
-[node name="Inimigos_de_base" type="CharacterBody2D" node_paths=PackedStringArray("_hitbox_are", "_dash_wait_time", "_dash_timer", "_invencibili_timer", "_auxiliar_animation")]
+[node name="Inimigos_de_base" type="CharacterBody2D" node_paths=PackedStringArray("_hitbox_are", "_dash_wait_time", "_dash_timer", "_invencibili_timer", "_auxiliar_animation", "anim_sprite")]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_24jc1")
+_dash_speed = 700.0
 _hitbox_are = NodePath("HeatboxArea")
 _dash_wait_time = NodePath("DashTempo")
 _dash_timer = NodePath("DashTimer")
 _invencibili_timer = NodePath("HeatboxArea/InvencibiliTimer")
 _auxiliar_animation = NodePath("Textura/Animationhit")
+anim_sprite = NodePath("Textura/lado")
 
 [node name="Textura" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_tqiwb")
@@ -118,6 +277,12 @@ autoplay = "scale"
 libraries = {
 &"": SubResource("AnimationLibrary_crr6q")
 }
+
+[node name="lado" type="AnimatedSprite2D" parent="Textura"]
+position = Vector2(0, -14)
+scale = Vector2(1.99107, 2.39946)
+sprite_frames = SubResource("SpriteFrames_02qo0")
+animation = &"esquerda"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -139,6 +304,7 @@ one_shot = true
 [node name="HeatboxArea" type="Area2D" parent="."]
 
 [node name="Collision" type="CollisionShape2D" parent="HeatboxArea"]
+visible = false
 shape = SubResource("CircleShape2D_tqiwb")
 
 [node name="InvencibiliTimer" type="Timer" parent="HeatboxArea"]

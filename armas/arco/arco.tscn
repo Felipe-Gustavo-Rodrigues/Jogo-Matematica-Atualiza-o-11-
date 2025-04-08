@@ -1,0 +1,108 @@
+[gd_scene load_steps=6 format=3 uid="uid://cw3qgfa11pdnc"]
+
+[ext_resource type="PackedScene" uid="uid://cvmtey6pouxly" path="res://armas/base_armas.tscn" id="1_13ji4"]
+
+[sub_resource type="Animation" id="Animation_hetbb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("texturaArma:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(315, 578, 64, 64)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Arma_1:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-27, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_va0ec"]
+resource_name = "atack"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("texturaArma:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(315, 578, 64, 64), Rect2(379, 578, 64, 64), Rect2(379, 578, 64, 64), Rect2(315, 578, 64, 64)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_spawn_projetos"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Arma_1:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-27, 4), Vector2(-19, 4), Vector2(-19, 4), Vector2(-27, 4)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1xrtb"]
+_data = {
+&"RESET": SubResource("Animation_hetbb"),
+&"ataque": SubResource("Animation_va0ec")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hl8mu"]
+radius = 184.0
+
+[node name="Arco" instance=ExtResource("1_13ji4")]
+_atack_damage = 10
+_atack_cooldown = 0.4
+
+[node name="texturaArma" parent="." index="0"]
+position = Vector2(-5, 0)
+rotation = 1.5708
+scale = Vector2(1.17188, 1.15625)
+region_rect = Rect2(315, 578, 64, 64)
+
+[node name="Arma_1" parent="." index="1"]
+position = Vector2(-27, 4)
+region_rect = Rect2(59, 514, 64, 64)
+
+[node name="Arma_2" parent="." index="2"]
+position = Vector2(-3, 13)
+region_rect = Rect2(59, 514, 64, 64)
+
+[node name="AnimationPlayer" parent="." index="3"]
+libraries = {
+&"": SubResource("AnimationLibrary_1xrtb")
+}
+
+[node name="Colisao" type="CollisionShape2D" parent="DetectarArea" index="0"]
+visible = false
+shape = SubResource("CircleShape2D_hl8mu")

@@ -1,12 +1,10 @@
-[gd_scene load_steps=26 format=3 uid="uid://bbbvo8qcqgmgw"]
+[gd_scene load_steps=27 format=3 uid="uid://bbbvo8qcqgmgw"]
 
 [ext_resource type="Script" uid="uid://btdm34gyiilof" path="res://player/player.gd" id="1_i3pqv"]
 [ext_resource type="Shader" uid="uid://crbvkvmvy4cny" path="res://player/player.gdshader" id="2_boad6"]
 [ext_resource type="PackedScene" uid="uid://dnv0rkwvkxts1" path="res://armas/espadar/espada_pequena.tscn" id="3_g1dw6"]
 [ext_resource type="Texture2D" uid="uid://btniatu4f2g5q" path="res://imagens/Sprites de movimento/Sprites de movimento/Nicolas sprites.png" id="3_rgyib"]
 [ext_resource type="Script" uid="uid://d0cdh777cqiyv" path="res://player/player_camera.gd" id="4_rgyib"]
-[ext_resource type="PackedScene" uid="uid://gcff8x2frqtv" path="res://armas/espadar/base_armas-2.tscn" id="4_yw30f"]
-[ext_resource type="PackedScene" uid="uid://cgkinitjunhma" path="res://armas/lança/lança-1.tscn" id="5_g6k8r"]
 [ext_resource type="PackedScene" uid="uid://bg2l8bjf3e738" path="res://particulas/particulas_base.tscn" id="5_qjkh3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rgyib"]
@@ -165,6 +163,68 @@ _data = {
 &"sacle": SubResource("Animation_rgyib")
 }
 
+[sub_resource type="Animation" id="Animation_wodsf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(64, 64)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_kb6p2"]
+resource_name = "position"
+length = 2.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(64, 64), Vector2(80, 80)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_32hag"]
+_data = {
+&"RESET": SubResource("Animation_wodsf"),
+&"position": SubResource("Animation_kb6p2")
+}
+
 [sub_resource type="Animation" id="Animation_2ieo8"]
 length = 0.001
 tracks/0/type = "value"
@@ -256,8 +316,6 @@ autoplay = "scale"
 [node name="Arma2" type="Marker2D" parent="ArmasFilhas"]
 position = Vector2(-96, 0)
 
-[node name="Espada-media" parent="ArmasFilhas/Arma2" instance=ExtResource("4_yw30f")]
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ArmasFilhas/Arma2"]
 libraries = {
 &"": SubResource("AnimationLibrary_8t03j")
@@ -268,6 +326,12 @@ autoplay = "sacle"
 position = Vector2(64, 64)
 
 [node name="TexturaArma3" type="Sprite2D" parent="ArmasFilhas/Arma3"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ArmasFilhas/Arma3"]
+libraries = {
+&"": SubResource("AnimationLibrary_32hag")
+}
+autoplay = "position"
 
 [node name="arma4" type="Marker2D" parent="ArmasFilhas"]
 position = Vector2(64, -64)
@@ -283,8 +347,6 @@ position = Vector2(-64, 64)
 position = Vector2(-64, -65)
 
 [node name="TexturaArma6" type="Sprite2D" parent="ArmasFilhas/Arma6"]
-
-[node name="Base_armas" parent="ArmasFilhas/Arma6" instance=ExtResource("5_g6k8r")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ArmasFilhas/Arma6"]
 libraries = {

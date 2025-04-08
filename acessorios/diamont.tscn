@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ubkrfdv2vpnt"]
+
+[ext_resource type="PackedScene" uid="uid://n032qansgl6b" path="res://acessorios/coin.tscn" id="1_etude"]
+[ext_resource type="Texture2D" uid="uid://cqtmydmjddeff" path="res://Assets (GERAL)/assets/icons/money/diamond.png" id="2_fbjpd"]
+
+[node name="Diamont" instance=ExtResource("1_etude")]
+_value_range = Array[int]([5, 12])
+
+[node name="TextriCoin" parent="." index="0"]
+texture = ExtResource("2_fbjpd")
