@@ -9,6 +9,7 @@ radius = 20.025
 [node name="Coin" type="Area2D" groups=["coins"]]
 script = ExtResource("1_xjg5q")
 _value_range = Array[int]([1, 7])
+_sfx_path = "res://Assets (GERAL)/assets/musics/sfx/gold_1.ogg"
 
 [node name="TextriCoin" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)

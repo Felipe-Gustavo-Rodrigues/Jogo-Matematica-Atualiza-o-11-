@@ -47,3 +47,13 @@ func _physics_process(_delta: float) -> void:
 	if is_instance_valid(_imigo_ref):
 		var direction:Vector2=global_position.direction_to(_imigo_ref.global_position)
 		rotation= direction.angle()
+		
+		
+func ulpdate_weapon_damage(_new_damage: int)->void:
+	_atack_damage = _new_damage
+	
+func ulpdate_weapon_cooldown(_new_cooldown: int)->void:
+	_atack_cooldown = _new_cooldown
+	
+func spawn_sfx(_sfx_path: String)->void:
+	bgm.spawn_sfx(_sfx_path)

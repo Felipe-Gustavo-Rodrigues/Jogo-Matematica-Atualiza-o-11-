@@ -1,6 +1,11 @@
 extends CanvasLayer
 class_name Interface
 
+@onready var _hearts_state: Dictionary={}
+var _heart_index:int=0
+var _max_heart_index:int = 2
+
+var reroll_cost:int=10
 var _current_weapons: Array=[]
 @export_category("Objetos")
 @export var _wave_and_time: Label
@@ -9,12 +14,52 @@ var _current_weapons: Array=[]
 
 
 func _ready() -> void:
-	
 	globall.interface=self
 	_load_cards()
+	$BetweenWavesCOntainer.visible = false
+	_hearts_state = {
+		"objetos":{
+			$HeardConteiner/TextureRect5:3,
+			$HeardConteiner/TextureRect4:3,
+			$HeardConteiner/TextureRect3:3,
+			$HeardConteiner/TextureRect2:3,
+			$HeardConteiner/TextureRect:3
+			
+		},
+		"texturas":{
+				3:"res://Assets (GERAL)/assets/icons/heart/full.png",
+				2:"res://Assets (GERAL)/assets/icons/heart/half.png",
+				1:"res://Assets (GERAL)/assets/icons/heart/empty.png"
+		}
+	}
 	for _button in get_tree().get_nodes_in_group("chose_button"):
 		_button.pressed.connect(_on_button_pressed.bind(_button))
+		_button.mouse_entered.connect(_on_mouse_entered.bind(_button))
 		
+	globall._increase_money(100)
+	$BetweenWavesCOntainer/Background/Rerrol.text = "Rodar -(" + str(reroll_cost) + "g)"
+	
+
+func update_helth()->void:
+	var _hearts_keys: Array = _hearts_state["objetos"].keys()
+	if _heart_index >= _hearts_keys.size():
+		bgm.spawn_sfx("res://Assets (GERAL)/assets/musics/sfx/wave_success.ogg")
+		await get_tree().create_timer(0.25).timeout
+		globall.inimigo_spawn.clear_map(true)
+		return
+	_hearts_state["objetos"][_hearts_keys[_heart_index]] -= 1
+	var heart_helth:int = _hearts_state["objetos"][_hearts_keys[_heart_index]]
+	if heart_helth == 0:
+		_heart_index += 1
+		update_helth()
+		return
+	_hearts_keys[_heart_index].texture = load(_hearts_state["texturas"][heart_helth])
+	
+	
+	
+
+func _on_mouse_entered(_button)->void:
+	bgm.spawn_sfx("res://Assets (GERAL)/assets/musics/sfx/button_hover.ogg")
 
 func  update_coin_amount(_new_amount:int)->void:
 	$CoinsCOnteiner/Amount.text = str(_new_amount)
@@ -32,10 +77,10 @@ func _time_in_secunds(_time:int) -> String:
 	return"%02d:%02d" % [_minuto, _secunds]
 
 func toggle_waves(_wave_state: bool, _waves_conteiner: bool)->void:
-	print("⏳ Timer acabou, limpando mapa...")
 	get_tree().paused=_waves_conteiner
 	$WaveAndTime.visible = _wave_state
 	$BetweenWavesCOntainer.visible = _waves_conteiner
+	$HeardConteiner.visible = _wave_state
 	
 	if _waves_conteiner:
 		_load_cards()
@@ -72,12 +117,21 @@ func _load_cards()->void:
 	print(_current_weapons)
 
 func _on_button_pressed(_button: Button)->void:
+	bgm.spawn_sfx("res://Assets (GERAL)/assets/musics/sfx/button_click.ogg")
 	match _button.name:
-		"Reroll":
-			pass
+		"Rerrol":
+			if globall.money >= reroll_cost:
+				globall._decrease_money(reroll_cost)
+				reroll_cost += 5
+				_button.text = "Rodar -(" + str(reroll_cost) + "g)"
+				_load_cards()
 		"Skip":
 			toggle_waves(true,false)
 			wave_managem.start_new_wave()
+			
+			reroll_cost = 5
+			$BetweenWavesCOntainer/Background/Rerrol.text = "Rodar -(" + str(reroll_cost) + "g)"
+			
 		"Chose":
 			var _i: int=0
 			var _childrens: Array = _slots_conteiner.get_children()
@@ -90,11 +144,21 @@ func _on_button_pressed(_button: Button)->void:
 					var cust: int = _weapon_data[_weapon_level]["cust"]
 					if globall.money >= cust:
 						@warning_ignore("standalone_expression")
-						globall.unlocked_weapons[_current_weapons[_i]] + 1
+						globall.unlocked_weapons[_current_weapons[_i]] += 1
 						globall._decrease_money(cust)
 						_sloat.hide()
-						
-					print(_weapon_data[_weapon_level])
+						if _weapon_level ==1:
+							globall.player.spawn_armas({
+								"scene_path": _weapon_data[_weapon_level]["scene_path"],
+								"values": _weapon_data[_weapon_level]["values"]
+							})
+							print("Instanciar arma")
+							break
+							
+						print(_current_weapons[_i])
+						get_tree().call_group(_current_weapons[_i], "ulpdate_weapon_damage", _weapon_data[_weapon_level]["values"]["damage"])
+						get_tree().call_group(_current_weapons[_i], "ulpdate_weapon_cooldown", _weapon_data[_weapon_level]["values"]["cooldown"])
+					
 					break
-				_i +=1
+				_i += 1
 			_button.release_focus()

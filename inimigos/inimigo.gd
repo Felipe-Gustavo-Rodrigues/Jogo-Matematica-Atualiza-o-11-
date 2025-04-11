@@ -60,16 +60,22 @@ func _chase(_direction:Vector2) -> void:
 	velocity = _direction * _move_speed
 	animação_andar(_direction)
 
-func _chase_and_dash(_direction:Vector2) -> void:
-	var _direction_uso:Vector2
+func _chase_and_dash(_direction: Vector2) -> void:
+	var _direction_uso: Vector2
 	if not _is_dash:
-		velocity=_direction*_move_speed
-		_direction_uso=_direction
-	if _is_dash:
+		velocity = _direction * _move_speed
+		_direction_uso = _direction
+	else:
 		var _dash_direction = global_position.direction_to(_posicion_anterior)
-		velocity=_dash_direction*_dash_speed
-		_direction_uso=_dash_direction
+		velocity = _dash_direction * _dash_speed
+		_direction_uso = _dash_direction  
+		# Verifica se o inimigo terminou o dash, e se sim, volta à perseguição
+	if global_position.distance_to(_posicion_anterior) <= 10.0:  # O valor 10.0 pode ser ajustado
+		_is_dash = false  # Reseta o estado do dash
+		_posicion_anterior = global_position  # Atualiza a posição anterior para evitar movimento errático
+		velocity = _direction * _move_speed  # Retorna ao comportamento de perseguição
 	animação_andar(_direction_uso)
+
 		
 func animação_andar(_direcao:Vector2)-> void:
 	if abs(_direcao.x) > abs(_direcao.y):
@@ -94,10 +100,12 @@ func animação_andar(_direcao:Vector2)-> void:
 
 func update_health(_value: int) -> void:
 	_health -= _value
+	globall.damage += _value
 	_auxiliar_animation.play("hit")
 	if _health <= 0:
 		get_tree().call_group("play_camera", "shack", 2.0, 0.3)
 		_spawn_coins()
+		globall.enemy_kills += 1
 		_spawn_explosion_particles()
 		queue_free()
 		return
@@ -120,6 +128,8 @@ func _spawn_text_popup(_value:int)->void:
 	get_tree().root.call_deferred("add_child", _popup)
 	
 func _spawn_explosion_particles() -> void:
+	if globall.is_changing_scene:
+		return
 	var _particles: CPUParticles2D = _EXPLOSAO.instantiate()
 	_particles.global_position = global_position
 	_particles.emitting = true
@@ -145,7 +155,7 @@ func _on_dash_tempo_timeout() -> void:
 
 func _on_dash_timer_timeout() -> void:
 	_is_dash = false
-
+	_posicion_anterior = global_position
 
 func _on_heatbox_area_body_entered(_body: Node2D) -> void:
 	if _body is Jogador:

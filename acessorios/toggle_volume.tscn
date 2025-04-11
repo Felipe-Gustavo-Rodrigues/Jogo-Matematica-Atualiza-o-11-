@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7mos7ee1dyuf"]
+
+[ext_resource type="Script" uid="uid://df18h7fovyx4x" path="res://acessorios/toggle_volume.gd" id="1_h2y2q"]
+[ext_resource type="Texture2D" uid="uid://bfgt1cd3anpa3" path="res://Assets (GERAL)/assets/icons/audio/on.png" id="1_itpfr"]
+[ext_resource type="Texture2D" uid="uid://coibl0ukjua15" path="res://Assets (GERAL)/assets/icons/music/on.png" id="2_h2y2q"]
+
+[node name="ToggleVolume" type="CanvasLayer"]
+process_mode = 3
+layer = 2
+script = ExtResource("1_h2y2q")
+
+[node name="Volume2" type="VBoxContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -101.0
+offset_top = 32.0
+offset_right = -32.0
+offset_bottom = 196.0
+grow_horizontal = 0
+theme_override_constants/separation = 26
+
+[node name="sfx" type="TextureButton" parent="Volume2"]
+custom_minimum_size = Vector2(69, 69)
+layout_mode = 2
+texture_normal = ExtResource("1_itpfr")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Volume" type="TextureButton" parent="Volume2"]
+custom_minimum_size = Vector2(69, 69)
+layout_mode = 2
+texture_normal = ExtResource("2_h2y2q")
+ignore_texture_size = true
+stretch_mode = 5
+
+[connection signal="focus_entered" from="Volume2/sfx" to="." method="_on_mause_entered"]
+[connection signal="pressed" from="Volume2/sfx" to="." method="_on_sfx_pressed"]
+[connection signal="focus_entered" from="Volume2/Volume" to="." method="_on_mause_entered"]
+[connection signal="pressed" from="Volume2/Volume" to="." method="_on_volume_pressed"]

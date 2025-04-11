@@ -9,6 +9,7 @@ var _last_direction: Vector2 = Vector2(0, 1)
 @export_category("Objetos")
 @export var _dust: CPUParticles2D = null
 @export var _auxiliar_animacao: AnimationPlayer
+@export var _weapon_menager: Node2D
 
 @onready var _sprite: Sprite2D = $Sprite2D
 
@@ -60,17 +61,32 @@ func update_sprite_direction(_direction: Vector2) -> void:
 func update_health(_type: String, _value) ->void:
 	match _type:
 		"damage":
-			_health -= _value
+			_health -= sign(_value)
+			globall.interface.update_helth()
+			globall.damage_suffer+=_value
 			_auxiliar_animacao.play("hit")
 			if _health <=0:
-				print("game Hover")
-				queue_free()
+				bgm.spawn_sfx("res://Assets (GERAL)/assets/musics/sfx/wave_success.ogg")
+				await get_tree().create_timer(0.25).timeout
+				globall.inimigo_spawn.clear_map(true)
+				
 		"heal":
 			_health += _value
 			if  _health > _max_health:
 				_health = _max_health
-				
+			globall.interface.update_helth()
+			
 func reset_health()->void:
 	print(" Antiga VIda do personagem ", str(_health))
 	_health = _max_health
 	print("VIda do personagem ", str(_health))
+
+func spawn_armas(_weapon_data: Dictionary) -> void:
+	for _children in _weapon_menager.get_children():
+		if _children.get_child_count()==1:
+			var _weapon: BaseArma = load(_weapon_data["scene_path"]).instantiate()
+			_children.call_deferred("add_child", _weapon)
+			_weapon.ulpdate_weapon_cooldown(_weapon_data["values"]["cooldown"])
+			_weapon.ulpdate_weapon_damage(_weapon_data["values"]["damage"])
+			break
+	pass

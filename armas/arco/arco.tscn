@@ -70,6 +70,20 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(-27, 4), Vector2(-19, 4), Vector2(-19, 4), Vector2(-27, 4)]
 }
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["res://Assets (GERAL)/assets/musics/sfx/arrow.mp3"],
+"method": &"spawn_sfx"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1xrtb"]
 _data = {
@@ -80,7 +94,7 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_hl8mu"]
 radius = 184.0
 
-[node name="Arco" instance=ExtResource("1_13ji4")]
+[node name="Arco" groups=["Arco"] instance=ExtResource("1_13ji4")]
 _atack_damage = 10
 _atack_cooldown = 0.4
 

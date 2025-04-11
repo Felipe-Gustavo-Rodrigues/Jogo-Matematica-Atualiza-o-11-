@@ -57,6 +57,20 @@ tracks/1/keys = {
 "update": 1,
 "values": [false, true]
 }
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["res://Assets (GERAL)/assets/musics/sfx/dagger.mp3"],
+"method": &"spawn_sfx"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_chti5"]
 _data = {
@@ -70,7 +84,7 @@ size = Vector2(20, 32)
 [sub_resource type="CircleShape2D" id="CircleShape2D_3opl2"]
 radius = 42.0
 
-[node name="EspadaPequena" instance=ExtResource("1_3opl2")]
+[node name="EspadaPequena" groups=["Espada-pequena"] instance=ExtResource("1_3opl2")]
 _atack_damage = 5
 _atack_cooldown = 0.5
 

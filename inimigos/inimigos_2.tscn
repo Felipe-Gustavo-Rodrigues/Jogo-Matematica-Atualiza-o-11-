@@ -168,13 +168,15 @@ animations = [{
 [node name="Inimigos_2" instance=ExtResource("1_johjg")]
 _enemy_type = "chase_and_dash"
 _move_speed = 180.0
-_damage = 5
+_damage = 1
 _invincibility_cooldoon = 1.5
 _health = 30
 
 [node name="Textura" parent="." index="0"]
 material = SubResource("ShaderMaterial_d5cj5")
 region_rect = Rect2(256, 512, 64, 64)
+
+[node name="Animationhit" parent="Textura" index="1" groups=["animation_players"]]
 
 [node name="lado" parent="Textura" index="2"]
 sprite_frames = SubResource("SpriteFrames_d5cj5")

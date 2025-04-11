@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 globall="*res://MenegemLevl/global_t.gd"
+bgm="*res://acessorios/bgm.tscn"
+togglevolume="*res://acessorios/toggle_volume.tscn"
 
 [display]
 

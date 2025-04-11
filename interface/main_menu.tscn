@@ -1,0 +1,186 @@
+[gd_scene load_steps=18 format=3 uid="uid://d1x47pd7sxkq4"]
+
+[ext_resource type="PackedScene" uid="uid://b8x7jnapf3576" path="res://MenegemLevl/tile_map_menu.tscn" id="1_g8ogf"]
+[ext_resource type="Script" uid="uid://d0ojgqfc0m4cu" path="res://interface/main_menu.gd" id="1_rahlh"]
+[ext_resource type="FontFile" uid="uid://dxbnfx1x6tlmu" path="res://Assets (GERAL)/assets/interface/fonts/kaph.ttf" id="2_dftu7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rahlh"]
+line_spacing = 0.0
+font = ExtResource("2_dftu7")
+font_size = 96
+font_color = Color(0.99355, 0.995736, 1, 1)
+shadow_size = 4
+shadow_color = Color(0.0509804, 0.0196078, 0.00392157, 1)
+shadow_offset = Vector2(7, 7)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wwcsp"]
+line_spacing = 0.0
+font = ExtResource("2_dftu7")
+font_size = 22
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(7, 7)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i5udr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bjm56"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i2iwl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sra6w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bshdd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bh83b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xif4q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7aqbr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t74wk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nwpt8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vnffm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_b4dut"]
+line_spacing = 0.0
+font = ExtResource("2_dftu7")
+font_size = 38
+font_color = Color(0, 0, 0.670588, 1)
+
+[node name="MainMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rahlh")
+
+[node name="TileMap" parent="." instance=ExtResource("1_g8ogf")]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.341176)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -475.0
+offset_top = -55.0
+offset_right = 475.0
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "NOME DO JOGO"
+label_settings = SubResource("LabelSettings_rahlh")
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -790.0
+offset_top = -47.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Feito por felipe, Carlos, nicolas, wallace e davi"
+label_settings = SubResource("LabelSettings_wwcsp")
+vertical_alignment = 1
+
+[node name="ButtonCOnteirner" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -110.0
+offset_right = 289.0
+offset_bottom = -32.0
+grow_vertical = 0
+
+[node name="New Game" type="Button" parent="ButtonCOnteirner"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.585062, 0.585062, 0.585062, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_dftu7")
+theme_override_font_sizes/font_size = 38
+theme_override_styles/focus = SubResource("StyleBoxEmpty_i5udr")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_bjm56")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_i2iwl")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_sra6w")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_bshdd")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_bh83b")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_xif4q")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_7aqbr")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_t74wk")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_nwpt8")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vnffm")
+text = "Novo Jogo "
+
+[node name="Label" type="Label" parent="ButtonCOnteirner/New Game"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 242.0
+offset_bottom = 40.0
+text = "Novo Jogo"
+label_settings = SubResource("LabelSettings_b4dut")
+vertical_alignment = 1
+
+[node name="Quit" type="Button" parent="ButtonCOnteirner"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.585062, 0.585062, 0.585062, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_dftu7")
+theme_override_font_sizes/font_size = 38
+theme_override_styles/focus = SubResource("StyleBoxEmpty_i5udr")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_bjm56")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_i2iwl")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_sra6w")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_bshdd")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_bh83b")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_xif4q")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_7aqbr")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_t74wk")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_nwpt8")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vnffm")
+text = "Quit
+"
+alignment = 0
+
+[node name="Label" type="Label" parent="ButtonCOnteirner/Quit"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 242.0
+offset_bottom = 40.0
+text = "Quit
+"
+label_settings = SubResource("LabelSettings_b4dut")
+vertical_alignment = 1
+
+[connection signal="mouse_entered" from="ButtonCOnteirner/New Game" to="." method="_on_new_game_mouse_entered"]
+[connection signal="pressed" from="ButtonCOnteirner/New Game" to="." method="_on_new_game_pressed"]
+[connection signal="mouse_entered" from="ButtonCOnteirner/Quit" to="." method="_on_new_game_mouse_entered"]
+[connection signal="pressed" from="ButtonCOnteirner/Quit" to="." method="_on_quit_pressed"]

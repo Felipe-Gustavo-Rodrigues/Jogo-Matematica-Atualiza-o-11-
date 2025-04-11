@@ -68,7 +68,7 @@ radius = 92.3896
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n5gw1"]
 size = Vector2(20, 92.6888)
 
-[node name="Base_armas" instance=ExtResource("1_1snwt")]
+[node name="Base_armas" groups=["Lanca"] instance=ExtResource("1_1snwt")]
 rotation = -1.07687
 _atack_damage = 13
 _atack_cooldown = 1.4

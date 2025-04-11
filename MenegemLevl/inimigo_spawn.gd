@@ -27,20 +27,20 @@ var _waves_dict: Dictionary = {
 		"spots_amount": [3, 6],
 		"inimi_dificult": "medium"
 	},
-	#4:{
-		#"inimi_time": 15,
-		#"inimi_spaw_coodown": 5,
-		#"inimi_numero": 2,
-		#"spots_amount": [3, 6],
-		#"inimi_dificult": "medium_to_hard"
-	#},
-	#5:{
-		#"inimi_time": 30,
-		#"inimi_spaw_coodown": 2,
-		#"inimi_numero": 1,
-		#"spots_amount": [4, 7],
-		#"inimi_dificult": "hard"
-	#}
+	4:{
+		"inimi_time": 15,
+		"inimi_spaw_coodown": 5,
+		"inimi_numero": 2,
+		"spots_amount": [3, 6],
+		"inimi_dificult": "medium_to_hard"
+	},
+	5:{
+		"inimi_time": 30,
+		"inimi_spaw_coodown": 2,
+		"inimi_numero": 1,
+		"spots_amount": [4, 7],
+		"inimi_dificult": "hard"
+	}
 	
 }
 
@@ -55,13 +55,15 @@ var _current_wave: int = 1
 @export var player: Jogador = null
 
 func _ready() -> void:
+	globall.inimigo_spawn=self
+	globall.reset_statisc()
 	interface.update_wave_and_time_label(_current_wave, _inimigo_timer.time_left-1)
 	_inimigo_timer.start(_waves_dict[_current_wave]["inimi_time"])
 	_inimigo_spawn_cooldown.start(_waves_dict[_current_wave]["inimi_spaw_coodown"])
 	_spawn_inimigos()
 
 func _on_inimigo_timer_timeout() -> void:
-	_clear_map()
+	clear_map()
 	_current_wave += 1
 	print("🌊 Iniciando nova onda:", _current_wave)
 	if _current_wave > _waves_dict.size():
@@ -70,6 +72,8 @@ func _on_inimigo_timer_timeout() -> void:
 	_inimigo_timer.start(_waves_dict[_current_wave]["inimi_time"])
 	_inimigo_spawn_cooldown.start(_waves_dict[_current_wave]["inimi_spaw_coodown"])
 	_spawn_inimigos()
+	return
+	bgm.spawn_sfx("res://Assets (GERAL)/assets/musics/sfx/wave_success.ogg")
 
 func _on_inimigo_spawn_cooldown_timeout() -> void:
 	if _waves_dict.has(_current_wave):
@@ -149,9 +153,10 @@ func _spawn_inimigo(_spawer: Node2D) ->void:
 	get_parent().call_deferred("add_child", inimigo)
 	
 func _on_curent_timer_timer_timeout() -> void:
+	globall.time_alive+=1
 	interface.update_wave_and_time_label(_current_wave, _inimigo_timer.time_left)
 
-func _clear_map()->void:
+func clear_map(_can_kill_player:bool = false)->void:
 	print("⏳ Timer acabou, limpando mapa...", interface)
 	for _chidren in get_tree().get_nodes_in_group("text_popup"):
 		_chidren.queue_free()
@@ -168,7 +173,16 @@ func _clear_map()->void:
 			get_tree().call_group("play_camera", "reset_shake")
 	await get_tree().create_timer(0.1).timeout
 	interface.toggle_waves(false,true)
-	
+	if _can_kill_player:
+		get_tree().call_group("Espada-pequena", "queue_free")
+		get_tree().call_group("Lanca", "queue_free")
+		get_tree().call_group("Arco", "queue_free")
+		globall.is_changing_scene = true
+		for anim_player in get_tree().get_nodes_in_group("animation_players"):
+			anim_player.stop()
+		get_tree().change_scene_to_file("res://interface/after_game.tscn")
+		player.queue_free()
+		return
 	
 
 func start_new_wave() -> void:

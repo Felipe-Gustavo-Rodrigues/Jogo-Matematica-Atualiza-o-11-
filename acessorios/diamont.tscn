@@ -5,6 +5,7 @@
 
 [node name="Diamont" instance=ExtResource("1_etude")]
 _value_range = Array[int]([5, 12])
+_sfx_path = "res://Assets (GERAL)/assets/musics/sfx/gold_2.ogg"
 
 [node name="TextriCoin" parent="." index="0"]
 texture = ExtResource("2_fbjpd")

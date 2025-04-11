@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bn4c18x8rjmep"]
+
+[ext_resource type="AudioStream" uid="uid://ds3h8vug01jew" path="res://Assets (GERAL)/assets/musics/bgm/bgm_theme.ogg" id="1_n61up"]
+[ext_resource type="Script" uid="uid://bgx0ar2jhegv2" path="res://acessorios/bgm.gd" id="2_opf4a"]
+
+[node name="BGM" type="AudioStreamPlayer2D"]
+process_mode = 3
+stream = ExtResource("1_n61up")
+volume_db = -15.0
+autoplay = true
+script = ExtResource("2_opf4a")

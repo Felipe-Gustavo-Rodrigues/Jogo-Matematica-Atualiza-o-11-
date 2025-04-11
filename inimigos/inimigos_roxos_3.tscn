@@ -168,7 +168,7 @@ animations = [{
 [node name="Inimigos_roxos_3" instance=ExtResource("1_ycf0o")]
 _enemy_type = "chase_and_dash"
 _move_speed = 180.0
-_damage = 9
+_damage = 1
 _invincibility_cooldoon = 1.5
 
 [node name="Textura" parent="." index="0"]
