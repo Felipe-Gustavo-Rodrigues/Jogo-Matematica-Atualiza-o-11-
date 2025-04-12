@@ -17,6 +17,29 @@ var player=null
 var money:int =0
 var inimigo_spawn: Inimigo_Spawn = null
 
+var _alternativas:Dictionary={
+	1:{
+		"Pergunta": "QUal seu nome",
+		"Resposta": 2
+	},
+	2:{
+		"Pergunta": "QUal seu nome-2",
+		"Resposta": 2
+	},
+	3:{
+		"Pergunta": "QUal seu nome-3",
+		"Resposta": 1
+	},
+	4:{
+		"Pergunta": "QUal seu nome-4",
+		"Resposta": 3
+	},
+	5:{
+		"Pergunta": "QUal seu nome-5",
+		"Resposta": 4
+	}
+}
+
 var wapons_list:Dictionary={
 	"Espada-pequena":{
 		1:{

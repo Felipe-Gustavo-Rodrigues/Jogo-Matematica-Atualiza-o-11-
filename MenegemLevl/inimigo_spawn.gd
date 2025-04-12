@@ -10,28 +10,28 @@ var _waves_dict: Dictionary = {
 		"inimi_time": 6,
 		"inimi_spaw_coodown": 4,
 		"inimi_numero": 1,
-		"spots_amount": [3, 6],
+		"spots_amount": [5, 8],
 		"inimi_dificult": "ease"
 	},
 	2: {
 		"inimi_time": 10,
 		"inimi_spaw_coodown": 4,
 		"inimi_numero": 1,
-		"spots_amount": [3, 6],
+		"spots_amount": [5, 8],
 		"inimi_dificult": "medium"
 	},
 	3:{
 		"inimi_time": 10,
 		"inimi_spaw_coodown": 4,
 		"inimi_numero": 1,
-		"spots_amount": [3, 6],
+		"spots_amount": [5, 8],
 		"inimi_dificult": "medium"
 	},
 	4:{
 		"inimi_time": 15,
 		"inimi_spaw_coodown": 5,
 		"inimi_numero": 2,
-		"spots_amount": [3, 6],
+		"spots_amount": [5, 8],
 		"inimi_dificult": "medium_to_hard"
 	},
 	5:{
@@ -46,7 +46,7 @@ var _waves_dict: Dictionary = {
 
 var _current_wave: int = 1
 @export_category("Variebles")
-@export var posicion_initial: Vector2 = Vector2(888, 666)
+@export var posicion_initial: Vector2 = Vector2(100, 100)
 
 @export_category("Objetos") 
 @export var _inimigo_timer: Timer
@@ -63,17 +63,26 @@ func _ready() -> void:
 	_spawn_inimigos()
 
 func _on_inimigo_timer_timeout() -> void:
-	clear_map()
+	
 	_current_wave += 1
 	print("🌊 Iniciando nova onda:", _current_wave)
 	if _current_wave > _waves_dict.size():
 		get_tree().change_scene_to_file("res://interface/after_game.tscn")
 		return
+		
+	clear_map()
+		
+	if _current_wave >= 2:
+			globall.interface.colocar_questões(false,true)
+			
+	else:
+		start_new_wave()
 	_inimigo_timer.start(_waves_dict[_current_wave]["inimi_time"])
 	_inimigo_spawn_cooldown.start(_waves_dict[_current_wave]["inimi_spaw_coodown"])
 	_spawn_inimigos()
 	return
 	bgm.spawn_sfx("res://Assets (GERAL)/assets/musics/sfx/wave_success.ogg")
+	clear_map()
 
 func _on_inimigo_spawn_cooldown_timeout() -> void:
 	if _waves_dict.has(_current_wave):
@@ -167,12 +176,13 @@ func clear_map(_can_kill_player:bool = false)->void:
 	for _children in get_tree().get_nodes_in_group("coins"):
 		_children.queue_free()
 	for _children in get_parent().get_children():
+		
 		if _children is Enemy:
 			_children._hitbox_are.set_deferred("monitoring", false)
 			_children.queue_free()
 			get_tree().call_group("play_camera", "reset_shake")
 	await get_tree().create_timer(0.1).timeout
-	interface.toggle_waves(false,true)
+	
 	if _can_kill_player:
 		get_tree().call_group("Espada-pequena", "queue_free")
 		get_tree().call_group("Lanca", "queue_free")
@@ -188,4 +198,3 @@ func clear_map(_can_kill_player:bool = false)->void:
 func start_new_wave() -> void:
 	_inimigo_timer.start(_waves_dict[_current_wave]["inimi_time"])
 	player.global_position = posicion_initial
-	player.reset_health()

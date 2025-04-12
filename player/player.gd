@@ -11,7 +11,7 @@ var _last_direction: Vector2 = Vector2(0, 1)
 @export var _auxiliar_animacao: AnimationPlayer
 @export var _weapon_menager: Node2D
 
-@onready var _sprite: Sprite2D = $Sprite2D
+@onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready()->void:
 	_max_health=_health
@@ -34,27 +34,27 @@ func _move() -> void:
 func update_sprite_direction(_direction: Vector2) -> void:
 	if _direction == Vector2.ZERO:  # Se estiver parado, usa a última direção
 		if _last_direction.y < 0:
-			_sprite.region_rect = Rect2(17, 23, 22, 23)  # Parado virado para cima
+			_sprite.play("parado_tras")  # Parado virado para cima
 			_sprite.flip_h = false
 		elif _last_direction.y > 0:
-			_sprite.region_rect = Rect2(17, 3, 22, 23)  # Parado virado para baixo
+			_sprite.play("parado_frente")  # Parado virado para baixo
 			_sprite.flip_h = false
 		elif _last_direction.x < 0:
-			_sprite.region_rect = Rect2(17, 49, 22, 23)  # Parado virado para a esquerda
+			_sprite.play("parado_lado")  # Parado virado para a esquerda
 			_sprite.flip_h = true
 		elif _last_direction.x > 0:
-			_sprite.region_rect = Rect2(17, 49, 22, 23)  # Parado virado para a direita
+			_sprite.play("parado_lado")  # Parado virado para a direita
 			_sprite.flip_h = false
 	else:
 		if _direction.y < 0:
-			_sprite.region_rect = Rect2(39, 23, 22, 23) 
+			_sprite.play("atras")
 		elif _direction.y > 0:
-			_sprite.region_rect = Rect2(39, 3, 22, 23)  
+			_sprite.play("frente") 
 		elif _direction.x < 0:
-			_sprite.region_rect = Rect2(39, 49, 22, 23)
+			_sprite.play("lado")
 			_sprite.flip_h = true 
 		elif _direction.x > 0:
-			_sprite.region_rect = Rect2(39, 49, 22, 23)
+			_sprite.play("lado")
 			_sprite.flip_h = false
 
 
@@ -79,6 +79,7 @@ func update_health(_type: String, _value) ->void:
 func reset_health()->void:
 	print(" Antiga VIda do personagem ", str(_health))
 	_health = _max_health
+	globall.interface.reset_hearts()
 	print("VIda do personagem ", str(_health))
 
 func spawn_armas(_weapon_data: Dictionary) -> void:

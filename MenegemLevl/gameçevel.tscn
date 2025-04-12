@@ -12,6 +12,7 @@
 
 [node name="PLAYER" parent="." instance=ExtResource("2_tm0cr")]
 position = Vector2(527, 296)
+_max_health = 0
 
 [node name="Inimigos_Espawn" type="Node2D" parent="." node_paths=PackedStringArray("_inimigo_timer", "_inimigo_spawn_cooldown", "interface", "player")]
 script = ExtResource("3_to5uw")

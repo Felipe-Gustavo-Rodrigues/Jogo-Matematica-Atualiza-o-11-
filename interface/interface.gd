@@ -5,6 +5,9 @@ class_name Interface
 var _heart_index:int=0
 var _max_heart_index:int = 2
 
+var questao_clicada:int = 0
+var butao_clicado:bool = false
+
 var reroll_cost:int=10
 var _current_weapons: Array=[]
 @export_category("Objetos")
@@ -39,7 +42,7 @@ func _ready() -> void:
 	globall._increase_money(100)
 	$BetweenWavesCOntainer/Background/Rerrol.text = "Rodar -(" + str(reroll_cost) + "g)"
 	
-
+	
 func update_helth()->void:
 	var _hearts_keys: Array = _hearts_state["objetos"].keys()
 	if _heart_index >= _hearts_keys.size():
@@ -162,3 +165,83 @@ func _on_button_pressed(_button: Button)->void:
 					break
 				_i += 1
 			_button.release_focus()
+		"Alternativa1":
+			print("Foi")
+			questao_clicada = 3
+			butao_clicado=true
+			avaliar_resposta()
+		"Alternativa2":
+			print("Foi")
+			questao_clicada = 4
+			butao_clicado=true
+			avaliar_resposta()
+		"Alternativa3":
+			print("Foi")
+			questao_clicada = 1
+			butao_clicado=true
+			avaliar_resposta()
+		"Alternativa4":
+			print("Foi")
+			questao_clicada = 2
+			butao_clicado=true
+			avaliar_resposta()
+
+func colocar_questões(_wave_state_q: bool, _waves_conteiner_q: bool)->void:
+	get_tree().paused=_waves_conteiner_q
+	$ConteinerPerguntas.visible = _waves_conteiner_q
+	
+	$ConteinerPerguntas/BckgroundColor/Alternativa1.visible=true
+	$ConteinerPerguntas/BckgroundColor/Alternativa2.visible=true
+	$ConteinerPerguntas/BckgroundColor/Alternativa3.visible=true
+	$ConteinerPerguntas/BckgroundColor/Alternativa4.visible=true
+	
+	var _perguntas = globall._alternativas[globall.inimigo_spawn._current_wave]["Pergunta"]
+	var _respostas:int=globall._alternativas[globall.inimigo_spawn._current_wave]["Resposta"]
+	$ConteinerPerguntas/BckgroundColor/ColorRect/Label.text= _perguntas
+	print(_perguntas, _respostas)
+	
+	if _waves_conteiner_q:
+		$ConteinerPerguntas/Timer.start()
+		
+
+func _on_timer_timeout() -> void:
+	$ConteinerPerguntas/BckgroundColor/Alternativa1.visible=false
+	$ConteinerPerguntas/BckgroundColor/Alternativa2.visible=false
+	$ConteinerPerguntas/BckgroundColor/Alternativa3.visible=false
+	$ConteinerPerguntas/BckgroundColor/Alternativa4.visible=false
+	butao_clicado=false
+	$ConteinerPerguntas/BckgroundColor/ColorRect/Label.text = "Acabou o tempo de 15 segundos"
+	await get_tree().create_timer(5).timeout
+	get_tree().paused=false
+	$ConteinerPerguntas.visible = false
+	print("Acabou o tempo")
+	wave_managem.start_new_wave()
+	
+func avaliar_resposta():
+	var _respostas = globall._alternativas[globall.inimigo_spawn._current_wave]["Resposta"]
+	if questao_clicada == _respostas:
+		print("Acertou! Resposta:", _respostas, "Clicada:", questao_clicada)
+		$ConteinerPerguntas/Timer.stop()
+		$ConteinerPerguntas.visible = false
+		globall.player.reset_health()
+		toggle_waves(false,true) # volta pro menu de armas
+	else:
+		print("Errou! Resposta:", _respostas, "Clicada:", questao_clicada)
+		$ConteinerPerguntas.visible=true
+		$ConteinerPerguntas/BckgroundColor/ColorRect/Label.text = "Você errou, mais sorte na próxima"
+		$ConteinerPerguntas/BckgroundColor/Alternativa1.visible = false
+		$ConteinerPerguntas/BckgroundColor/Alternativa2.visible = false
+		$ConteinerPerguntas/BckgroundColor/Alternativa3.visible = false
+		$ConteinerPerguntas/BckgroundColor/Alternativa4.visible = false
+		await get_tree().create_timer(5).timeout
+		$ConteinerPerguntas/Timer.stop()
+		$ConteinerPerguntas.visible = false
+		get_tree().paused = false
+		wave_managem.start_new_wave()
+
+func reset_hearts() -> void:
+	_heart_index = 0
+	var _hearts_keys: Array = _hearts_state["objetos"].keys()
+	for heart in _hearts_keys:
+		_hearts_state["objetos"][heart] = 3
+		heart.texture = load(_hearts_state["texturas"][3])
